@@ -18,7 +18,7 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        //initRecyclerView();
+        tmmrRecyclerView();
         backToMain();
     }
 
@@ -27,15 +27,15 @@ public class SecondActivity extends AppCompatActivity {
         backBtn.setOnClickListener(view -> startActivity(new Intent(SecondActivity.this, MainActivity.class)));
     }
 
-    private void initRecyclerView() {
+    private void tmmrRecyclerView() {
         ArrayList<TomorrowDomain> items = new ArrayList<>();
 
-        items.add(new TomorrowDomain("Saturday", "cloudy", 50,  30));
-        items.add(new TomorrowDomain("Sunday", "cloudy", 50, 30));
-        items.add(new TomorrowDomain("Monday", "cloudy", 50, 30));
-        items.add(new TomorrowDomain("Tuesday", "cloudy", 50, 30));
-        items.add(new TomorrowDomain("Wednesday", "cloudy", 50, 30));
-        items.add(new TomorrowDomain("Thursday", "cloudy", 50, 30));
+        items.add(new TomorrowDomain("Saturday", "cloudy", "Hi ", "Lo"));
+        items.add(new TomorrowDomain("Sunday", "cloudy", "Hi ", "Lo"));
+        items.add(new TomorrowDomain("Monday", "cloudy", "Hi ", "Lo"));
+        items.add(new TomorrowDomain("Tuesday", "cloudy", "Hi ", "Lo"));
+        items.add(new TomorrowDomain("Wednesday", "cloudy", "Hi ", "Lo"));
+        items.add(new TomorrowDomain("Thursday", "cloudy", "Hi ", "Lo"));
 
         recyclerView = findViewById(R.id.rv2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

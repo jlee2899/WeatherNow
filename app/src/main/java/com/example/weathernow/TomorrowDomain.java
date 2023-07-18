@@ -3,10 +3,10 @@ package com.example.weathernow;
 public class TomorrowDomain {
     private String day;
     private String picture;
-    private int highTemp;
-    private int lowTemp;
+    private String highTemp;
+    private String lowTemp;
 
-    public TomorrowDomain(String day, String picture, int highTemp, int lowTemp) {
+    public TomorrowDomain(String day, String picture, String highTemp, String lowTemp) {
         this.day = day;
         this.picture = picture;
         this.highTemp = highTemp;
@@ -29,19 +29,19 @@ public class TomorrowDomain {
         this.picture = picture;
     }
 
-    public int getHighTemp() {
+    public String getHighTemp() {
         return highTemp;
     }
 
-    public void setHighTemp(int highTemp) {
+    public void setHighTemp(String highTemp) {
         this.highTemp = highTemp;
     }
 
-    public int getLowTemp() {
+    public String getLowTemp() {
         return lowTemp;
     }
 
-    public void setLowTemp(int lowTemp) {
+    public void setLowTemp(String lowTemp) {
         this.lowTemp = lowTemp;
     }
 }
