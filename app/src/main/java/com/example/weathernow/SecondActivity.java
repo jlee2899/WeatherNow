@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void backToMain() {
-        TextView backBtn = findViewById(R.id.tvBackToMain);
+        ImageView backBtn = findViewById(R.id.leftBtn);
         backBtn.setOnClickListener(view -> startActivity(new Intent(SecondActivity.this, MainActivity.class)));
     }
 
