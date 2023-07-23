@@ -117,7 +117,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
-                            android:text="5-8 km/h"
+                            android:text=""
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
@@ -153,7 +153,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
-                            android:text="1000 MB"
+                            android:text=""
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
@@ -189,7 +189,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
-                            android:text="51%"
+                            android:text=""
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
