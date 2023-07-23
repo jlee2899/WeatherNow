@@ -11,18 +11,23 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String API_KEY = "9ef2c0bd8c6aab6fd8b77e15a293a00e";
+    private TextView currDateTextView;
     private TextView temperatureTextView;
     private TextView humidityTextView;
     private TextView tvHL;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        currDateTextView = findViewById(R.id.tvCurrDate);
         temperatureTextView = findViewById(R.id.tvTemperature);
         humidityTextView = findViewById(R.id.tvHumidity);
         tvHL = findViewById(R.id.tvHL);
@@ -71,37 +77,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchWeatherData(String city) {
+        String currentWeatherApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY;
+        String hourlyForecastApiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + API_KEY;
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY;
-
                 try {
-                    URL url = new URL(apiUrl);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
+                    URL currentWeatherUrl = new URL(currentWeatherApiUrl);
+                    HttpURLConnection currentWeatherConnection = (HttpURLConnection) currentWeatherUrl.openConnection();
+                    currentWeatherConnection.setRequestMethod("GET");
 
-                    int responseCode = connection.getResponseCode();
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        InputStream inputStream = connection.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            response.append(line);
+                    int currentWeatherResponseCode = currentWeatherConnection.getResponseCode();
+                    if (currentWeatherResponseCode == HttpURLConnection.HTTP_OK) {
+                        InputStream currentWeatherInputStream = currentWeatherConnection.getInputStream();
+                        BufferedReader currentWeatherReader = new BufferedReader(new InputStreamReader(currentWeatherInputStream));
+                        StringBuilder currentWeatherResponse = new StringBuilder();
+                        String currentWeatherLine;
+                        while ((currentWeatherLine = currentWeatherReader.readLine()) != null) {
+                            currentWeatherResponse.append(currentWeatherLine);
                         }
-                        reader.close();
-                        inputStream.close();
+                        currentWeatherReader.close();
+                        currentWeatherInputStream.close();
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateWeatherData(response.toString());
-                            }
-                        });
+                        updateCurrentWeatherData(currentWeatherResponse.toString());
                     } else {
-                        Log.e("WeatherApp", "HTTP request failed with status code: " + responseCode);
+                        Log.e("WeatherApp", "Current weather data request failed with status code: " + currentWeatherResponseCode);
                     }
+
+                    URL hourlyForecastUrl = new URL(hourlyForecastApiUrl);
+                    HttpURLConnection hourlyForecastConnection = (HttpURLConnection) hourlyForecastUrl.openConnection();
+                    hourlyForecastConnection.setRequestMethod("GET");
+
+                    int hourlyForecastResponseCode = hourlyForecastConnection.getResponseCode();
+                    if (hourlyForecastResponseCode == HttpURLConnection.HTTP_OK) {
+                        InputStream hourlyForecastInputStream = hourlyForecastConnection.getInputStream();
+                        BufferedReader hourlyForecastReader = new BufferedReader(new InputStreamReader(hourlyForecastInputStream));
+                        StringBuilder hourlyForecastResponse = new StringBuilder();
+                        String hourlyForecastLine;
+                        while ((hourlyForecastLine = hourlyForecastReader.readLine()) != null) {
+                            hourlyForecastResponse.append(hourlyForecastLine);
+                        }
+                        hourlyForecastReader.close();
+                        hourlyForecastInputStream.close();
+
+                        updateHourlyForecast(hourlyForecastResponse.toString());
+                    } else {
+                        Log.e("WeatherApp", "Hourly forecast data request failed with status code: " + hourlyForecastResponseCode);
+                    }
+
                 } catch (IOException e) {
                     Log.e("WeatherApp", "Error fetching weather data", e);
                 }
@@ -111,11 +135,13 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
     }
 
-    private void updateWeatherData(String response) {
+    private void updateCurrentWeatherData(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject mainObject = jsonObject.optJSONObject("main");
             JSONObject windObject = jsonObject.optJSONObject("wind");
+            //New edit
+            JSONObject weatherObject = jsonObject.optJSONObject("weather");
             if (mainObject != null) {
                 double temperatureKelvin = mainObject.optDouble("temp");
                 double temperatureCelsius = temperatureKelvin - 273.15;
@@ -124,7 +150,9 @@ public class MainActivity extends AppCompatActivity {
                 double temperatureMinKelvin = mainObject.optDouble("temp_min");
                 double windSpeed = windObject.optDouble("speed");
                 double pressure = mainObject.optDouble("pressure");
-                WeatherData weatherData = new WeatherData(temperatureCelsius, humidity, temperatureMaxKelvin - 273.15, temperatureMinKelvin - 273.15, windSpeed, pressure);
+                //New edit
+                String description = windObject.optString("description");
+                WeatherData weatherData = new WeatherData(temperatureCelsius, humidity, temperatureMaxKelvin - 273.15, temperatureMinKelvin - 273.15, windSpeed, pressure, description);
                 updateTextViews(weatherData);
             } else {
                 Log.e("WeatherApp", "Unable to retrieve weather data. Invalid JSON structure.");
@@ -132,6 +160,61 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.e("WeatherApp", "Error parsing weather data", e);
         }
+    }
+    private void updateHourlyForecast(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray hourlyForecastArray = jsonObject.optJSONArray("list");
+
+            if (hourlyForecastArray == null) {
+                Log.e("WeatherApp", "Unable to retrieve hourly forecast data. Invalid JSON structure.");
+                return;
+            }
+
+            ArrayList<HourlyForecast> items = new ArrayList<>();
+            int forecastCount = 0;
+
+            for (int i = 0; i < hourlyForecastArray.length(); i++) {
+                JSONObject forecastObject = hourlyForecastArray.getJSONObject(i);
+                long timestamp = forecastObject.optLong("dt");
+                String time = convertTimestampToHour(timestamp);
+                JSONObject mainObject = forecastObject.optJSONObject("main");
+                double temperatureKelvin = mainObject.optDouble("temp");
+                double temperatureCelsius = temperatureKelvin - 273.15;
+                int temperatureFahrenheit = (int) (temperatureCelsius * 9 / 5) + 32;
+                JSONArray weatherArray = forecastObject.optJSONArray("weather");
+                String weatherIcon = "unknown";
+
+                if (weatherArray != null && weatherArray.length() > 0) {
+                    JSONObject weatherObject = weatherArray.getJSONObject(0);
+                    weatherIcon = weatherObject.optString("icon");
+                }
+
+                items.add(new HourlyForecast(time, temperatureFahrenheit, weatherIcon));
+                forecastCount++;
+                if (forecastCount >= 9) {
+                    break;
+                }
+            }
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapterHourly = new HourlyAdapter(items);
+                    recyclerView.setAdapter(adapterHourly);
+                }
+            });
+
+        } catch (JSONException e) {
+            Log.e("WeatherApp", "Error parsing hourly forecast data", e);
+        }
+    }
+
+
+    private String convertTimestampToHour(long timestamp) {
+        Date date = new Date(timestamp * 1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
+        return sdf.format(date);
     }
 
     private void updateTextViews(WeatherData weatherData) {
@@ -144,11 +227,18 @@ public class MainActivity extends AppCompatActivity {
         int lowTemperatureFahrenheit = (int) (lowTemperature * 1.8 + 32);
         int windSpeed = (int) weatherData.getWindSpeed();
         int pressure = (int) weatherData.getPressure();
-        temperatureTextView.setText(temperatureFahrenheit + "°F");
-        humidityTextView.setText("Humidity: " + humidity + "%");
-        String highLowTemperature = "H: " + highTemperatureFahrenheit + "°  L: " + lowTemperatureFahrenheit + "°";
-        tvHL.setText(highLowTemperature);
-        windTextView.setText("Wind: " + windSpeed + " km/h");
-        pressureTextView.setText("Pressure: " + pressure + " hPa");
+        String description = weatherData.getDescription();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                temperatureTextView.setText(temperatureFahrenheit + "°F");
+                humidityTextView.setText("Humidity: \n" + humidity + "%");
+                String highLowTemperature = "H: " + highTemperatureFahrenheit + "°  L: " + lowTemperatureFahrenheit + "°";
+                tvHL.setText(highLowTemperature);
+                windTextView.setText("Wind: \n" + windSpeed + " km/h");
+                pressureTextView.setText("Pressure: \n" + pressure + " hPa");
+
+            }
+        });
     }
 }
