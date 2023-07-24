@@ -9,7 +9,9 @@ public class WeatherData {
     private double pressure;
     private String description;
 
-    public WeatherData(double temperatureCelsius, int humidity, double highTemperatureCelsius, double lowTemperatureCelsius, double windSpeed, double pressure, String description) {
+    private String currentDate;
+
+    public WeatherData(double temperatureCelsius, int humidity, double highTemperatureCelsius, double lowTemperatureCelsius, double windSpeed, double pressure, String description, String currentDate) {
         this.temperature = temperatureCelsius;
         this.humidity = humidity;
         this.highTemperature = highTemperatureCelsius;
@@ -17,6 +19,7 @@ public class WeatherData {
         this.windSpeed = windSpeed;
         this.pressure = pressure;
         this.description = description;
+        this.currentDate = currentDate;
     }
 
     public double getTemperature() {
@@ -44,4 +47,9 @@ public class WeatherData {
     public String getDescription() {
         return description;
     }
+
+    public String getCurrentDate(){
+        return currentDate;
+    }
+
 }

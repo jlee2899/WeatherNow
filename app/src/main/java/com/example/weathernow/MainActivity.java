@@ -56,11 +56,17 @@ public class MainActivity extends AppCompatActivity {
 
         initRecyclerView();
         to7Days();
+        toSavedList();
     }
 
     private void to7Days() {
         TextView next7DaysBtn = findViewById(R.id.tv7days);
         next7DaysBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, SecondActivity.class)));
+    }
+
+    private void toSavedList() {
+        TextView next7DaysBtn = findViewById(R.id.savedList);
+        next7DaysBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, ThirdActivity.class)));
     }
 
     private void initRecyclerView() {
@@ -143,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject mainObject = jsonObject.optJSONObject("main");
             JSONObject windObject = jsonObject.optJSONObject("wind");
-            //New edit
             JSONArray weatherArray = jsonObject.optJSONArray("weather");
+
             if (mainObject != null && weatherArray != null && weatherArray.length() > 0) {
                 double temperatureKelvin = mainObject.optDouble("temp");
                 double temperatureCelsius = temperatureKelvin - 273.15;
@@ -153,9 +159,14 @@ public class MainActivity extends AppCompatActivity {
                 double temperatureMinKelvin = mainObject.optDouble("temp_min");
                 double windSpeed = windObject.optDouble("speed");
                 double pressure = mainObject.optDouble("pressure");
-                //new edit
                 String description = weatherArray.getJSONObject(0).optString("description");
-                WeatherData weatherData = new WeatherData(temperatureCelsius, humidity, temperatureMaxKelvin - 273.15, temperatureMinKelvin - 273.15, windSpeed, pressure, description);
+                //Extracting the timestamp and converting it to readable date
+                int timestamp = jsonObject.optInt("dt");
+                Date date = new Date(timestamp * 1000L);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy", Locale.getDefault());
+                String formattedDate = dateFormat.format(date);
+
+                WeatherData weatherData = new WeatherData(temperatureCelsius, humidity, temperatureMaxKelvin - 273.15, temperatureMinKelvin - 273.15, windSpeed, pressure, description, formattedDate);
                 updateTextViews(weatherData);
             } else {
                 Log.e("WeatherApp", "Unable to retrieve weather data. Invalid JSON structure.");
@@ -232,12 +243,14 @@ public class MainActivity extends AppCompatActivity {
         int lowTemperatureFahrenheit = (int) (lowTemperature * 1.8 + 32);
         int windSpeed = (int) weatherData.getWindSpeed();
         int pressure = (int) weatherData.getPressure();
-        //New edit
         String description = weatherData.getDescription();
+        String currentDate = weatherData.getCurrentDate();
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 //New edit
+                currDateTextView.setText(currentDate);
                 descriptionTextView.setText(description);
                 temperatureTextView.setText(temperatureFahrenheit + "°F");
                 humidityTextView.setText("Humidity: \n" + humidity + "%");

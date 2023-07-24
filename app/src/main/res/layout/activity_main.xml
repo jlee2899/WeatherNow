@@ -26,6 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
+                    android:layout_weight="1"
                     android:hint="City"
                     app:hintTextColor="@color/white"
                     android:textColorHint="@color/white"
@@ -37,14 +38,16 @@
                     app:boxCornerRadiusBottomStart="10dp"
                     app:boxCornerRadiusBottomEnd="10dp"
                     app:boxCornerRadiusTopStart="10dp"
-                    app:boxCornerRadiusTopEnd="10dp">
+                    app:boxCornerRadiusTopEnd="10dp"
+                    android:fontFamily="@font/novecento_font">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/novecento_font"/>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -60,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
                     android:text="Today's Date"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:fontFamily="@font/novecento_font"
                     android:textAlignment="center"/>
@@ -87,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="55°"
-                    android:textSize="42sp"
+                    android:textSize="36sp"
                     android:textColor="#FFFFFF"
                     android:fontFamily="@font/novecento_font"
                     android:textAlignment="center"
@@ -120,6 +123,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="22dp"
                             app:srcCompat="@drawable/wind"
+                            app:tint="@color/white"
                             android:paddingBottom="4dp"/>
 
                         <TextView
@@ -156,6 +160,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="22dp"
                             app:srcCompat="@drawable/pressure"
+                            app:tint="@color/white"
                             android:paddingBottom="4dp"/>
 
                         <TextView
@@ -192,6 +197,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="22dp"
                             app:srcCompat="@drawable/humidity"
+                            app:tint="@color/white"
                             android:paddingBottom="4dp" />
 
                         <TextView
@@ -229,7 +235,7 @@
                     android:layout_weight="1"
                     android:text="Hourly Forecast"
                     android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/novecento_font"
                     android:textAlignment="center"
@@ -241,27 +247,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"/>
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv7days"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="7 Day Forecast>"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/novecento_font"
-                    android:textAlignment="textEnd"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp" />
+                    <TextView
+                        android:id="@+id/savedList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/saved_list"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/novecento_font"
+                        android:textAlignment="textStart"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp" />
+
+                    <TextView
+                        android:id="@+id/tv7days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="7 Day Forecast>"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/novecento_font"
+                        android:textAlignment="textEnd"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp" />
+                </TableRow>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
