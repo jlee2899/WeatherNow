@@ -27,7 +27,9 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private static final String API_KEY = "9ef2c0bd8c6aab6fd8b77e15a293a00e";
+    //New edits
     private TextView currDateTextView;
+    private TextView descriptionTextView;
     private TextView temperatureTextView;
     private TextView humidityTextView;
     private TextView tvHL;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        descriptionTextView = findViewById(R.id.tvCurrWeatherType);
         currDateTextView = findViewById(R.id.tvCurrDate);
         temperatureTextView = findViewById(R.id.tvTemperature);
         humidityTextView = findViewById(R.id.tvHumidity);
@@ -141,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
             JSONObject mainObject = jsonObject.optJSONObject("main");
             JSONObject windObject = jsonObject.optJSONObject("wind");
             //New edit
-            JSONObject weatherObject = jsonObject.optJSONObject("weather");
-            if (mainObject != null) {
+            JSONArray weatherArray = jsonObject.optJSONArray("weather");
+            if (mainObject != null && weatherArray != null && weatherArray.length() > 0) {
                 double temperatureKelvin = mainObject.optDouble("temp");
                 double temperatureCelsius = temperatureKelvin - 273.15;
                 int humidity = mainObject.optInt("humidity");
@@ -150,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
                 double temperatureMinKelvin = mainObject.optDouble("temp_min");
                 double windSpeed = windObject.optDouble("speed");
                 double pressure = mainObject.optDouble("pressure");
-                //New edit
-                String description = windObject.optString("description");
+                //new edit
+                String description = weatherArray.getJSONObject(0).optString("description");
                 WeatherData weatherData = new WeatherData(temperatureCelsius, humidity, temperatureMaxKelvin - 273.15, temperatureMinKelvin - 273.15, windSpeed, pressure, description);
                 updateTextViews(weatherData);
             } else {
@@ -161,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e("WeatherApp", "Error parsing weather data", e);
         }
     }
+
+
     private void updateHourlyForecast(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -227,17 +232,19 @@ public class MainActivity extends AppCompatActivity {
         int lowTemperatureFahrenheit = (int) (lowTemperature * 1.8 + 32);
         int windSpeed = (int) weatherData.getWindSpeed();
         int pressure = (int) weatherData.getPressure();
+        //New edit
         String description = weatherData.getDescription();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                //New edit
+                descriptionTextView.setText(description);
                 temperatureTextView.setText(temperatureFahrenheit + "°F");
                 humidityTextView.setText("Humidity: \n" + humidity + "%");
                 String highLowTemperature = "H: " + highTemperatureFahrenheit + "°  L: " + lowTemperatureFahrenheit + "°";
                 tvHL.setText(highLowTemperature);
                 windTextView.setText("Wind: \n" + windSpeed + " km/h");
                 pressureTextView.setText("Pressure: \n" + pressure + " hPa");
-
             }
         });
     }
