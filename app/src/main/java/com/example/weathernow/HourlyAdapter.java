@@ -35,11 +35,8 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
         holder.hour.setText(items.get(position).getHour());
         holder.temp.setText(items.get(position).getTemp() + "°");
 
-        int drawableResourceID = holder.itemView.getResources()
-                .getIdentifier(items.get(position).getPath(), "drawable", holder.itemView.getContext().getPackageName());
-
         Glide.with(context)
-                .load(drawableResourceID)
+                .load(items.get(position).getPath()) // Use the weather icon URL from HourlyForecast
                 .into(holder.path);
     }
 

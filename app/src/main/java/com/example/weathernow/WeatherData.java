@@ -11,7 +11,10 @@ public class WeatherData {
 
     private String currentDate;
 
-    public WeatherData(double temperatureCelsius, int humidity, double highTemperatureCelsius, double lowTemperatureCelsius, double windSpeed, double pressure, String description, String currentDate) {
+    //New edit
+    private String iconUrl;
+
+    public WeatherData(double temperatureCelsius, int humidity, double highTemperatureCelsius, double lowTemperatureCelsius, double windSpeed, double pressure, String description, String currentDate, String iconUrl) {
         this.temperature = temperatureCelsius;
         this.humidity = humidity;
         this.highTemperature = highTemperatureCelsius;
@@ -20,6 +23,7 @@ public class WeatherData {
         this.pressure = pressure;
         this.description = description;
         this.currentDate = currentDate;
+        this.iconUrl = iconUrl;
     }
 
     public double getTemperature() {
@@ -50,6 +54,9 @@ public class WeatherData {
 
     public String getCurrentDate(){
         return currentDate;
+    }
+    public String getIconUrl(){
+        return iconUrl;
     }
 
 }

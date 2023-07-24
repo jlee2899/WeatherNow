@@ -4,7 +4,6 @@ public class HourlyForecast {
     private String hour;
     private int temp;
     private String path;
-
     public HourlyForecast(String hour, int temp, String path) {
         this.hour = hour;
         this.temp = temp;

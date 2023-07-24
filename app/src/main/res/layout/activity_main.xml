@@ -71,8 +71,8 @@
                 <ImageView
                     android:id="@+id/ivCurrWeather"
                     android:layout_width="match_parent"
-                    android:layout_height="144dp"
-                    android:layout_margin="16dp"
+                    android:layout_height="@dimen/main_weather_icon_size"
+                    android:layout_margin="10dp"
                     app:srcCompat="@drawable/cloudy"/>
 
                 <TextView

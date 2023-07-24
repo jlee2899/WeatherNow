@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -23,6 +24,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -166,7 +173,11 @@ public class MainActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy", Locale.getDefault());
                 String formattedDate = dateFormat.format(date);
 
-                WeatherData weatherData = new WeatherData(temperatureCelsius, humidity, temperatureMaxKelvin - 273.15, temperatureMinKelvin - 273.15, windSpeed, pressure, description, formattedDate);
+                //Retrieve weather icon
+                String iconCode = weatherArray.getJSONObject(0).optString("icon");
+                String iconUrl = "https://openweathermap.org/img/wn/" + iconCode + ".png";
+
+                WeatherData weatherData = new WeatherData(temperatureCelsius, humidity, temperatureMaxKelvin - 273.15, temperatureMinKelvin - 273.15, windSpeed, pressure, description, formattedDate, iconUrl);
                 updateTextViews(weatherData);
             } else {
                 Log.e("WeatherApp", "Unable to retrieve weather data. Invalid JSON structure.");
@@ -199,12 +210,14 @@ public class MainActivity extends AppCompatActivity {
                 double temperatureCelsius = temperatureKelvin - 273.15;
                 int temperatureFahrenheit = (int) (temperatureCelsius * 9 / 5) + 32;
                 JSONArray weatherArray = forecastObject.optJSONArray("weather");
-                String weatherIcon = "unknown";
+                String weatherIconCode = "unknown";
 
                 if (weatherArray != null && weatherArray.length() > 0) {
                     JSONObject weatherObject = weatherArray.getJSONObject(0);
-                    weatherIcon = weatherObject.optString("icon");
+                    weatherIconCode = weatherObject.optString("icon");
                 }
+
+                String weatherIcon = getWeatherIconUrl(weatherIconCode);
 
                 items.add(new HourlyForecast(time, temperatureFahrenheit, weatherIcon));
                 forecastCount++;
@@ -226,6 +239,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //New edit
+    private String getWeatherIconUrl(String iconCode){
+        return "https://openweathermap.org/img/wn/" + iconCode + ".png";
+    }
+
 
     private String convertTimestampToHour(long timestamp) {
         Date date = new Date(timestamp * 1000);
@@ -245,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
         int pressure = (int) weatherData.getPressure();
         String description = weatherData.getDescription();
         String currentDate = weatherData.getCurrentDate();
+        String iconUrl = weatherData.getIconUrl();
 
         runOnUiThread(new Runnable() {
             @Override
@@ -258,6 +277,15 @@ public class MainActivity extends AppCompatActivity {
                 tvHL.setText(highLowTemperature);
                 windTextView.setText("Wind: \n" + windSpeed + " km/h");
                 pressureTextView.setText("Pressure: \n" + pressure + " hPa");
+
+                ImageView ivCurrWeather = findViewById(R.id.ivCurrWeather);
+                int iconSize = getResources().getDimensionPixelSize(R.dimen.main_weather_icon_size);
+
+                Glide.with(MainActivity.this)
+                        .load(iconUrl)
+                        .transform(new CenterCrop(), new FitCenter()) // Apply CenterCrop and FitCenter transformations
+                        .override(iconSize, iconSize) // Set the desired width and height
+                        .into(ivCurrWeather);
             }
         });
     }
