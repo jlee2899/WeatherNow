@@ -26,7 +26,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String API_KEY = "9ef2c0bd8c6aab6fd8b77e15a293a00e";
+    private static final String API_KEY = "YOUR_API_KEY";
     //New edits
     private TextView currDateTextView;
     private TextView descriptionTextView;
