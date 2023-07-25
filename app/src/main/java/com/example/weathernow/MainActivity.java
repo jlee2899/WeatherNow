@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,8 +30,8 @@ import java.net.URL;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView pressureTextView;
     private RecyclerView.Adapter adapterHourly;
     private RecyclerView recyclerView;
+    private TextInputEditText textInputEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +61,31 @@ public class MainActivity extends AppCompatActivity {
         windTextView = findViewById(R.id.tvWind);
         pressureTextView = findViewById(R.id.tvPressure);
 
-        String city = "Denver";
-        fetchWeatherData(city);
+        String defaultCity = "Denver";
+        fetchWeatherData(defaultCity);
 
         initRecyclerView();
         to7Days();
         toSavedList();
+
+        //New edits
+        textInputEditText = findViewById(R.id.textInputEditText);
+        TextInputLayout textInputLayout = findViewById(R.id.textInputLayout);
+
+        // Set up the end icon click listener for the search icon
+        textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Called when the search icon is clicked
+                // Get the city entered by the user in the TextInputEditText
+                String city = textInputEditText.getText().toString();
+
+                //Fetching weather data for the searched city
+                fetchWeatherData(city);
+                // Perform the weather data update based on the searched city
+                updateCurrentWeatherData(city);
+            }
+        });
     }
 
     private void to7Days() {
@@ -78,12 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         ArrayList<HourlyForecast> items = new ArrayList<>();
-
-        items.add(new HourlyForecast("10 pm",19, "cloudy"));
-        items.add(new HourlyForecast("11 pm",20, "sun"));
-        items.add(new HourlyForecast("12 pm",21, "wind"));
-        items.add(new HourlyForecast("1 am",20, "rainy"));
-        items.add(new HourlyForecast("2 am",22, "storm"));
 
         recyclerView = findViewById(R.id.rv1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -118,6 +134,13 @@ public class MainActivity extends AppCompatActivity {
 
                         updateCurrentWeatherData(currentWeatherResponse.toString());
                     } else {
+                        // Show a toast indicating that the city does not exist
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "City not found. Please enter a valid city.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         Log.e("WeatherApp", "Current weather data request failed with status code: " + currentWeatherResponseCode);
                     }
 
@@ -187,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void updateHourlyForecast(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -243,7 +265,6 @@ public class MainActivity extends AppCompatActivity {
     private String getWeatherIconUrl(String iconCode){
         return "https://openweathermap.org/img/wn/" + iconCode + ".png";
     }
-
 
     private String convertTimestampToHour(long timestamp) {
         Date date = new Date(timestamp * 1000);
