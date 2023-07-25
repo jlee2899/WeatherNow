@@ -35,7 +35,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String API_KEY = "YOUR_API_KEY";
+    private static final String API_KEY = "9ef2c0bd8c6aab6fd8b77e15a293a00e";
     //New edits
     private TextView currDateTextView;
     private TextView descriptionTextView;
@@ -260,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e("WeatherApp", "Error parsing hourly forecast data", e);
         }
     }
-
     //New edit
     private String getWeatherIconUrl(String iconCode){
         return "https://openweathermap.org/img/wn/" + iconCode + ".png";

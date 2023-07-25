@@ -33,7 +33,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvCurrDate"
+                    android:id="@+id/tvNextDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/novecento_font"
@@ -49,7 +49,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/ivCurrWeather"
+                        android:id="@+id/ivNextWeather"
                         android:layout_width="0dp"
                         android:layout_height="144dp"
                         android:layout_margin="16dp"
@@ -64,7 +64,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tvCurrWeatherType"
+                            android:id="@+id/tvNextWeatherType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
@@ -74,7 +74,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tvTemperature"
+                            android:id="@+id/tvNextTemperature"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
@@ -85,7 +85,7 @@
                             android:textSize="42sp" />
 
                         <TextView
-                            android:id="@+id/tvHL"
+                            android:id="@+id/tvNextHL"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
@@ -110,14 +110,14 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/ivWind"
+                            android:id="@+id/ivNextWind"
                             android:layout_width="match_parent"
                             android:layout_height="22dp"
                             android:paddingBottom="4dp"
                             app:srcCompat="@drawable/wind" />
 
                         <TextView
-                            android:id="@+id/tvWind"
+                            android:id="@+id/tvNextWind"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
@@ -127,7 +127,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/tvWindSpeed"
+                            android:id="@+id/tvNextWindSpeed"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
@@ -146,14 +146,14 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/ivPressure"
+                            android:id="@+id/ivNextPressure"
                             android:layout_width="match_parent"
                             android:layout_height="22dp"
                             android:paddingBottom="4dp"
                             app:srcCompat="@drawable/pressure" />
 
                         <TextView
-                            android:id="@+id/tvPressure"
+                            android:id="@+id/tvNextPressure"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
@@ -163,7 +163,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/tvPressureAmount"
+                            android:id="@+id/tvNextPressureAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
@@ -182,14 +182,14 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/ivHumidity"
+                            android:id="@+id/ivNextHumidity"
                             android:layout_width="match_parent"
                             android:layout_height="22dp"
                             android:paddingBottom="4dp"
                             app:srcCompat="@drawable/humidity" />
 
                         <TextView
-                            android:id="@+id/tvHumidity"
+                            android:id="@+id/tvNextHumidity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"
@@ -199,7 +199,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/tvHumidityPercent"
+                            android:id="@+id/tvNextHumidityPercent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/novecento_font"

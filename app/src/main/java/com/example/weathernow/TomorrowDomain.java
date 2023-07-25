@@ -2,13 +2,13 @@ package com.example.weathernow;
 
 public class TomorrowDomain {
     private String day;
-    private String picture;
+    private String icon;
     private String highTemp;
     private String lowTemp;
 
-    public TomorrowDomain(String day, String picture, String highTemp, String lowTemp) {
+    public TomorrowDomain(String day, String icon, String highTemp, String lowTemp) {
         this.day = day;
-        this.picture = picture;
+        this.icon = icon;
         this.highTemp = highTemp;
         this.lowTemp = lowTemp;
     }
@@ -21,12 +21,12 @@ public class TomorrowDomain {
         this.day = day;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setIcon(String picture) {
+        this.icon = picture;
     }
 
     public String getHighTemp() {

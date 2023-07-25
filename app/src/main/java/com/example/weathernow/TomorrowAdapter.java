@@ -37,7 +37,7 @@ public class TomorrowAdapter extends RecyclerView.Adapter<TomorrowAdapter.ViewHo
         holder.low.setText(items.get(position).getLowTemp());
 
         int drawableResourceID = holder.itemView.getResources()
-                .getIdentifier(items.get(position).getPicture(), "drawable", holder.itemView.getContext().getPackageName());
+                .getIdentifier(items.get(position).getIcon(), "drawable", holder.itemView.getContext().getPackageName());
 
         Glide.with(context)
                 .load(drawableResourceID)
