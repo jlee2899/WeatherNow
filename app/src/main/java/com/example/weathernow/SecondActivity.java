@@ -29,21 +29,25 @@ public class SecondActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterTomorrow;
     private RecyclerView recyclerView;
     private static final String API_KEY = "APIK";
-
     private TextView myCityTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        tmmrRecyclerView();
-        backToMain();
 
-        String city = "Denver";
-        fetchFiveDayWeatherData(city);
+        String city = CityDataHolder.getCity();
+        if (city == null || city.isEmpty()) {
+            city = "Denver";
+        }
+        CityDataHolder.setCity(city);
 
         myCityTextView = findViewById(R.id.tvCityName);
         myCityTextView.setText(city);
+
+        fetchFiveDayWeatherData(city);
+        tmmrRecyclerView();
+        backToMain();
     }
 
     private void backToMain() {

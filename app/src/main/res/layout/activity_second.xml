@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/novecento_font"
                         android:paddingTop="4dp"
-                        android:text="NEXT 7 day forecast"
+                        android:text="NEXT 5 day forecast"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="22sp"

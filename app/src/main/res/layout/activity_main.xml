@@ -61,10 +61,21 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvCurrDate"
+                    android:id="@+id/tvCurrCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
+                    android:text="Current City"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/novecento_font"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/tvCurrDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
                     android:text="Today's Date"
                     android:textSize="20sp"
                     android:textColor="#FFFFFF"

@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterHourly;
     private RecyclerView recyclerView;
     private TextInputEditText textInputEditText;
+    private TextView currCityTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,32 +61,32 @@ public class MainActivity extends AppCompatActivity {
         tvHL = findViewById(R.id.tvHL);
         windTextView = findViewById(R.id.tvWind);
         pressureTextView = findViewById(R.id.tvPressure);
+        currCityTextView = findViewById(R.id.tvCurrCity);
 
-        String defaultCity = "Denver";
-        fetchWeatherData(defaultCity);
+        String city = CityDataHolder.getCity();
+        if (city == null || city.isEmpty()) {
+            city = "Denver";
+        }
+        CityDataHolder.setCity(city);
 
         initRecyclerView();
         to7Days();
         toSavedList();
 
-        //New edits
         textInputEditText = findViewById(R.id.textInputEditText);
         TextInputLayout textInputLayout = findViewById(R.id.textInputLayout);
 
-        // Set up the end icon click listener for the search icon
         textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Called when the search icon is clicked
-                // Get the city entered by the user in the TextInputEditText
                 String city = textInputEditText.getText().toString();
-
-                //Fetching weather data for the searched city
-                fetchWeatherData(city);
-                // Perform the weather data update based on the searched city
-                updateCurrentWeatherData(city);
+                CityDataHolder.setCity(city);
+                fetchWeatherData(CityDataHolder.getCity());
+                updateCurrentWeatherData(CityDataHolder.getCity());
             }
         });
+
+        fetchWeatherData(CityDataHolder.getCity());
     }
 
     private void to7Days() {
@@ -297,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
                 tvHL.setText(highLowTemperature);
                 windTextView.setText("Wind: \n" + windSpeed + " km/h");
                 pressureTextView.setText("Pressure: \n" + pressure + " hPa");
+                currCityTextView.setText(CityDataHolder.getCity());
 
                 ImageView ivCurrWeather = findViewById(R.id.ivCurrWeather);
                 int iconSize = getResources().getDimensionPixelSize(R.dimen.main_weather_icon_size);
@@ -309,4 +311,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
