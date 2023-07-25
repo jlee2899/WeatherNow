@@ -24,22 +24,9 @@
         android:id="@+id/tvTmmrHi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="170dp"
+        android:layout_marginStart="225dp"
         android:fontFamily="@font/novecento_font"
         android:text="Hi"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTmmrLo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="192dp"
-        android:fontFamily="@font/novecento_font"
-        android:text="LO"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,9 +37,9 @@
         android:id="@+id/ivTmmrPic"
         android:layout_width="114dp"
         android:layout_height="58dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvTmmrLo"
+        app:layout_constraintStart_toEndOf="@id/tvTmmrHi"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sunny" />
 </androidx.constraintlayout.widget.ConstraintLayout>

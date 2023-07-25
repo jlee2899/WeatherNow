@@ -33,182 +33,34 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvNextDate"
+                    android:id="@+id/tvCityName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/novecento_font"
-                    android:paddingTop="16dp"
-                    android:text="Tommorow"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="City"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/ivNextWeather"
-                        android:layout_width="0dp"
-                        android:layout_height="144dp"
-                        android:layout_margin="16dp"
-                        android:layout_weight="0.5"
-                        app:srcCompat="@drawable/cloudy" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvNextWeatherType"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="Mostly Cloudly"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/tvNextTemperature"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="55°"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="42sp" />
-
-                        <TextView
-                            android:id="@+id/tvNextHL"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="H:67°  L:43°"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tvNext7Day"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_weight="0.333"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/ivNextWind"
-                            android:layout_width="match_parent"
-                            android:layout_height="22dp"
-                            android:paddingBottom="4dp"
-                            app:srcCompat="@drawable/wind" />
-
-                        <TextView
-                            android:id="@+id/tvNextWind"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="Wind"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tvNextWindSpeed"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="5-8 km/h"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_weight="0.333"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/ivNextPressure"
-                            android:layout_width="match_parent"
-                            android:layout_height="22dp"
-                            android:paddingBottom="4dp"
-                            app:srcCompat="@drawable/pressure" />
-
-                        <TextView
-                            android:id="@+id/tvNextPressure"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="Pressure"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tvNextPressureAmount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="1000 MB"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_weight="0.333"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/ivNextHumidity"
-                            android:layout_width="match_parent"
-                            android:layout_height="22dp"
-                            android:paddingBottom="4dp"
-                            app:srcCompat="@drawable/humidity" />
-
-                        <TextView
-                            android:id="@+id/tvNextHumidity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="Humidity"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tvNextHumidityPercent"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/novecento_font"
-                            android:text="51%"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
+                        android:fontFamily="@font/novecento_font"
+                        android:paddingTop="4dp"
+                        android:text="NEXT 7 day forecast"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:paddingBottom="20dp">
+                    </TextView>
                 </LinearLayout>
             </LinearLayout>
 

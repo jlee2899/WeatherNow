@@ -33,14 +33,10 @@ public class TomorrowAdapter extends RecyclerView.Adapter<TomorrowAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.day.setText(items.get(position).getDay());
-        holder.hi.setText(items.get(position).getHighTemp());
-        holder.low.setText(items.get(position).getLowTemp());
-
-        int drawableResourceID = holder.itemView.getResources()
-                .getIdentifier(items.get(position).getIcon(), "drawable", holder.itemView.getContext().getPackageName());
+        holder.temp.setText(items.get(position).getTemp() + "°");
 
         Glide.with(context)
-                .load(drawableResourceID)
+                .load(items.get(position).getPicture()) // Use the weather icon URL from HourlyForecast
                 .into(holder.path);
     }
 
@@ -50,14 +46,13 @@ public class TomorrowAdapter extends RecyclerView.Adapter<TomorrowAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView day, hi, low;
+        TextView day, temp;
         ImageView path;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             day = itemView.findViewById(R.id.tvTmmrDay);
-            hi = itemView.findViewById(R.id.tvTmmrHi);
-            low = itemView.findViewById(R.id.tvTmmrLo);
+            temp = itemView.findViewById(R.id.tvTmmrHi);
             path = itemView.findViewById(R.id.ivTmmrPic);
         }
     }

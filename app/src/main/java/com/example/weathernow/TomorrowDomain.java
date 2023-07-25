@@ -1,16 +1,19 @@
 package com.example.weathernow;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TomorrowDomain {
     private String day;
-    private String icon;
-    private String highTemp;
-    private String lowTemp;
+    private String picture;
+    private int temp;
 
-    public TomorrowDomain(String day, String icon, String highTemp, String lowTemp) {
+    public TomorrowDomain(String day, String picture, int temp) {
         this.day = day;
-        this.icon = icon;
-        this.highTemp = highTemp;
-        this.lowTemp = lowTemp;
+        this.picture = picture;
+        this.temp = temp;
     }
 
     public String getDay() {
@@ -21,27 +24,20 @@ public class TomorrowDomain {
         this.day = day;
     }
 
-    public String getIcon() {
-        return icon;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setIcon(String picture) {
-        this.icon = picture;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
-    public String getHighTemp() {
-        return highTemp;
+    public int getTemp() {
+        return temp;
     }
 
-    public void setHighTemp(String highTemp) {
-        this.highTemp = highTemp;
+    public void setTemp(int temp) {
+        this.temp = temp;
     }
 
-    public String getLowTemp() {
-        return lowTemp;
-    }
-
-    public void setLowTemp(String lowTemp) {
-        this.lowTemp = lowTemp;
-    }
 }
